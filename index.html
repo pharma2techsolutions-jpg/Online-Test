@@ -18,7 +18,6 @@
         .container { max-width: 900px; margin: 30px auto; padding: 0 20px; flex: 1; width: 100%; }
         .card { background: white; padding: 35px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 5px solid var(--primary); margin-bottom: 20px; text-align: center; }
 
-        /* Login Page Specific Improvements */
         .quote-box { background: #e3f2fd; padding: 15px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid var(--primary); font-style: italic; font-size: 0.9rem; color: #004085; }
         .instruction-box { text-align: left; background: #fff9c4; padding: 15px; border-radius: 10px; margin-bottom: 25px; border: 1px dashed #fbc02d; }
         .instruction-box h4 { margin-bottom: 8px; color: #856404; font-size: 0.95rem; }
@@ -50,7 +49,6 @@
         .option:hover { background: #f0f7ff; border-color: var(--primary); }
         .option:has(input:checked) { background: var(--primary) !important; color: white !important; border-color: var(--primary); }
 
-        /* Review Styles */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 10px; margin: 20px 0; justify-content: center; }
         .grid-box { height: 35px; width: 35px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: white; font-weight: bold; font-size: 0.85rem; cursor: pointer; }
         
@@ -140,7 +138,8 @@
 </footer>
 
 <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbz_6uzrcw6nH9_0dn-kcVAFWM59jInC5aim-NG-yK80PGWUI4kiGdwFpcEEkRjZcpPt/exec";
+    // Tumcha Updated Script URL
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzxgYPJCK7e4m_0bT_ON80G70yWF3O1RVFal8FJxAUIGOWnhcr_bao4MqYS-dJcDy4j/exec";
     
     let questions = [], curIdx = 0, userAns = [], student = {}, testTitle = "", malCount = 0, historyData = [];
 
@@ -161,6 +160,7 @@
 
         showLoader();
         try {
+            // Login kela ki system check karel ki ha vidyarthi hya SPECIFIC test sathi baslay ka
             const res = await fetch(`${scriptURL}?action=login&email=${encodeURIComponent(email)}&pass=${encodeURIComponent(pass)}&mode=${mode}`);
             const text = await res.text();
             
@@ -168,7 +168,7 @@
                 alert("Invalid Credentials!");
                 hideLoader();
             } else if(text === "ALREADY_GIVEN") {
-                alert("You have already submitted this exam.");
+                alert("You have already submitted THIS exam (" + testTitle + "). You can only view results now.");
                 hideLoader();
             } else {
                 student = JSON.parse(text);
@@ -280,6 +280,7 @@
             </div>
             <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; text-align:left; max-width:350px; margin: 0 auto; border: 1px solid #eee;">
                 <p style="margin-bottom:8px;"><b>Student Name:</b> ${student.name}</p>
+                <p style="margin-bottom:8px;"><b>Exam:</b> ${testTitle}</p>
                 <p style="margin-bottom:8px;"><b>Total Questions:</b> ${t}</p>
                 <p style="margin-bottom:8px;"><b>Correct Answers:</b> <span style="color:var(--success); font-weight:bold;">${s}</span></p>
                 <p style="margin-bottom:8px;"><b>Wrong Answers:</b> <span style="color:var(--danger); font-weight:bold;">${t - s}</span></p>
