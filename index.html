@@ -121,8 +121,8 @@
 </footer>
 
 <script>
-    // --- IMPORTANT: REPLACE WITH YOUR DEPLOYED SCRIPT URL ---
-    const scriptURL = "https://script.google.com/macros/s/AKfycbzHEYtzgoeuMVvE4w1UO3MK3d5EXV1UcE6WgHVsw5h3N2Sh0nBJlemkz5aMwXxTtH4/exec";
+    // Updated Script URL
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxbIOWZUdUayKplPFgFVTm-0KvxTc6sBsM-T4w0AKv26oYkL12anm2jjkjV7-S3sdB5/exec";
     
     let questions = [], curIdx = 0, userAns = [], student = {}, testTitle = "", malCount = 0, historyData = [];
 
@@ -143,7 +143,9 @@
 
         showLoader();
         try {
-            const res = await fetch(`${scriptURL}?action=login&email=${encodeURIComponent(email)}&pass=${encodeURIComponent(pass)}&mode=${mode}`);
+            // New logic with examTitle parameter
+            const url = `${scriptURL}?action=login&email=${encodeURIComponent(email)}&pass=${encodeURIComponent(pass)}&mode=${mode}&examTitle=${encodeURIComponent(testTitle)}`;
+            const res = await fetch(url);
             const text = await res.text();
             
             if(text === "INVALID") {
